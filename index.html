@@ -52,16 +52,22 @@
             <p id="output-b" class="output">...</p>
         </div>
         <div class="card p-4 mb-4">
-            <h2>After Service Allocation (-$121.35)</h2>
+            <h2>After Service Allocation (-$113.89)</h2>
             <p id="output-sea" class="output">...</p>
         </div>
         <div class="card p-4 mb-4">
             <h2>Savings Allocation</h2>
             <p id="output-saa" class="output">...</p>
-        </div>
-        <div class="card p-4 mb-4">
             <h2>Checking Weekly Balance</h2>
             <p id="output-chw" class="output">...</p>
+        </div>
+        <div class="card p-4 mb-4">
+            <h2>After Service with Climbing (-$133.64)</h2>
+            <p id="output-seac" class="output">...</p>
+            <h2>Savings</h2>
+            <p id="output-saac" class="output">...</p>
+            <h2>Checking</h2>
+            <p id="output-chwc" class="output">...</p>
         </div>
         <div class="card p-4 mb-4">
             <h2>Extra Income (SAGO)</h2>
@@ -86,13 +92,24 @@
         const hour = parseFloat(document.getElementById("hours").value);
         if (!isNaN(hour)) {
             const result = hour * pay;
-            const service_allocation = result - 121.35;
+            const service_allocation = result - 113.89;
             const savings = Math.ceil(service_allocation / 2);
             const checking = service_allocation - savings;
+
+            const climbing_service_allocation = result - 133.64;
+            const climbing_savings = Math.ceil(climbing_service_allocation / 2);
+            const climbing_checking = climbing_service_allocation - climbing_savings;
+
             document.getElementById("output-b").textContent = `$${result.toFixed(2)}`;
             document.getElementById("output-sea").textContent = `$${service_allocation.toFixed(2)}`;
             document.getElementById("output-saa").textContent = `$${savings.toFixed(2)}`;
             document.getElementById("output-chw").textContent = `$${checking.toFixed(2)}`;
+
+            document.getElementById("output-seac").textContent = `$${climbing_service_allocation.toFixed(2)}`;
+            document.getElementById("output-saac").textContent = `$${climbing_savings.toFixed(2)}`;
+            document.getElementById("output-chwc").textContent = `$${climbing_checking.toFixed(2)}`;
+
+
         } else {
             document.getElementById("output-sea").textContent = "Please enter a valid number.";
         }
