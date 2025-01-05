@@ -45,6 +45,8 @@
         <div class="card p-4 mb-4">
             <h2>Enter Week Hours</h2>
             <input type="number" class="form-control" placeholder="Enter hours" id="hours">
+            <h2>Extra Income (SAGO)</h2>
+            <input type="number" class="form-control" placeholder="Enter paycheck amount" id="pay">
             <button id="calculate-btn" class="btn btn-primary mt-3">Calculate</button>
         </div>
         <div class="card p-4 mb-4">
@@ -52,27 +54,10 @@
             <p id="output-b" class="output">...</p>
         </div>
         <div class="card p-4 mb-4">
-            <h2>After Service Allocation (-$113.89)</h2>
-            <p id="output-sea" class="output">...</p>
-        </div>
-        <div class="card p-4 mb-4">
-            <h2>Savings Allocation</h2>
-            <p id="output-saa" class="output">...</p>
-            <h2>Checking Weekly Balance</h2>
-            <p id="output-chw" class="output">...</p>
-        </div>
-        <div class="card p-4 mb-4">
-            <h2>After Service with Climbing (-$133.64)</h2>
+            <h2>After week cuota ($361.84)</h2>
             <p id="output-seac" class="output">...</p>
-            <h2>Savings</h2>
-            <p id="output-saac" class="output">...</p>
-            <h2>Checking</h2>
+            <h2>Need extra</h2>
             <p id="output-chwc" class="output">...</p>
-        </div>
-        <div class="card p-4 mb-4">
-            <h2>Extra Income (SAGO)</h2>
-            <input type="number" class="form-control" placeholder="Enter paycheck amount" id="pay">
-            <button id="calculate-ex" class="btn btn-primary mt-3">Calculate</button>
         </div>
         <div class="card p-4 mb-4">
             <h2>Savings</h2>
@@ -86,43 +71,37 @@
 <script>
     const pay = 17.47;
     const btn = document.getElementById("calculate-btn");
-    const btn2 = document.getElementById("calculate-ex");
     
     btn.addEventListener("click", function() {
         const hour = parseFloat(document.getElementById("hours").value);
+        const pay_s = parseFloat(document.getElementById("pay").value);
+        let result = 0
         if (!isNaN(hour)) {
-            const result = hour * pay;
-            const service_allocation = result - 113.89;
-            const savings = Math.ceil(service_allocation / 2);
-            const checking = service_allocation - savings;
+            result = hour * pay;
+            if(!isNaN(pay_s)){
+                result += pay_s;
+            }
+            const service_allocation = result - 361.84;
+            const extra_cash = 361.84 - result;
 
-            const climbing_service_allocation = result - 133.64;
-            const climbing_savings = Math.ceil(climbing_service_allocation / 2);
-            const climbing_checking = climbing_service_allocation - climbing_savings;
+            const savings = Math.ceil(service_allocation / 2);
+            const checking = service_allocation - savings; 
 
             document.getElementById("output-b").textContent = `$${result.toFixed(2)}`;
-            document.getElementById("output-sea").textContent = `$${service_allocation.toFixed(2)}`;
-            document.getElementById("output-saa").textContent = `$${savings.toFixed(2)}`;
-            document.getElementById("output-chw").textContent = `$${checking.toFixed(2)}`;
-
-            document.getElementById("output-seac").textContent = `$${climbing_service_allocation.toFixed(2)}`;
-            document.getElementById("output-saac").textContent = `$${climbing_savings.toFixed(2)}`;
-            document.getElementById("output-chwc").textContent = `$${climbing_checking.toFixed(2)}`;
-
-
+            document.getElementById("output-seac").textContent = `$${service_allocation.toFixed(2)}`;
+            
+            if (service_allocation > 0){
+                document.getElementById("output-chwc").textContent = `n/a`;
+                document.getElementById("output-s").textContent = `$${savings.toFixed(2)}`;
+                document.getElementById("output-c").textContent = `$${checking.toFixed(2)}`;
+            } else{
+                document.getElementById("output-chwc").textContent = `$${extra_cash.toFixed(2)}`;
+                document.getElementById("output-s").textContent = `n/a`;
+                document.getElementById("output-c").textContent = `n/a`;
+            }
+            
         } else {
             document.getElementById("output-sea").textContent = "Please enter a valid number.";
-        }
-    });
-    
-    btn2.addEventListener("click", function() {
-        const pay = parseFloat(document.getElementById("pay").value);
-        if (!isNaN(pay)) {
-            const savings = Math.ceil(pay / 2);
-            const checking = pay - savings;
-            document.getElementById("output-s").textContent = `$${savings.toFixed(2)}`;
-            document.getElementById("output-c").textContent = `$${checking.toFixed(2)}`;
-        } else {
             document.getElementById("output-s").textContent = "Please enter a valid number.";
         }
     });
