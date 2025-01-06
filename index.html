@@ -76,8 +76,10 @@
         const hour = parseFloat(document.getElementById("hours").value);
         const pay_s = parseFloat(document.getElementById("pay").value);
         let result = 0
-        if (!isNaN(hour)) {
-            result = hour * pay;
+        if (!isNaN(hour) || !isNaN(pay_s)) {
+            if (!isNaN(hour)){
+                result = hour * pay;
+            }
             if(!isNaN(pay_s)){
                 result += pay_s;
             }
