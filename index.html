@@ -54,7 +54,7 @@
             <p id="output-b" class="output">...</p>
         </div>
         <div class="card p-4 mb-4">
-            <h2>After week cuota ($361.84)</h2>
+            <h2>After week cuota ($308.09)</h2>
             <p id="output-seac" class="output">...</p>
             <h2>Need extra</h2>
             <p id="output-chwc" class="output">...</p>
@@ -70,6 +70,7 @@
 
 <script>
     const pay = 17.47;
+    const quota = 308.09;
     const btn = document.getElementById("calculate-btn");
     
     btn.addEventListener("click", function() {
@@ -83,8 +84,8 @@
             if(!isNaN(pay_s)){
                 result += pay_s;
             }
-            const service_allocation = result - 361.84;
-            const extra_cash = 361.84 - result;
+            const service_allocation = result - quota;
+            const extra_cash = quota - result;
 
             const savings = Math.ceil(service_allocation / 2);
             const checking = service_allocation - savings; 
